@@ -1,0 +1,15 @@
+{
+    "name": "antho/ferreteriav4",
+    "description": "sistema de negocio",
+    "type": "project",
+    "authors": [
+        {
+            "name": "antonio340",
+            "email": "anthony_341@outlook.es"
+        }
+    ],
+    "require": {
+        "illuminate/database": "^8.13",
+        "illuminate/events": "^8.13"
+    }
+}
