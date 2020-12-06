@@ -1,5 +1,13 @@
 {
   "dependencies": {
+    "axios": "^0.21.0",
     "bulma": "^0.9.1"
-  }
+  },
+  "name": "ferreteriav4",
+  "version": "1.0.0",
+  "description": "axios ferreteria",
+  "main": "index.js",
+  "repository": "https://github.com/antonio340/ferreteriav4.git",
+  "author": "antonio340 <anthony_341@outlook.es>",
+  "license": "MIT"
 }

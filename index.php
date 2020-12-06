@@ -1,122 +1,67 @@
 <?php
+use Illuminate\Database\Capsule\Manager as DB;
+
 require_once "header.php";
 require "vendor/autoload.php";
+require 'config/database.php';
 
-session_start();
-//si no se encuentra una sesión de empleado entonces muestra lo siguiente
-if(!isset($_SESSION["empleado"]) and !isset($_SESSION["cliente"]))
-{
- echo <<<_LOGIN1
+
+
+?>
+
+
 
  
- <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
- </nav>
-
- <section class="section">
-     <h4 class="title is-4">- ingresar como empleado -</h4>
- <form name="login" method="post" action="loginempleado.php">
-  <strong>nombre</strong>
-    <input type="text" name="nombre">
-  <strong>contraseña</strong>
-    <input type="password" name="pass">
-    <button class="button is-link is-light" type="submit" >login</button>
-   
- </form>
-</section>
- <br>
- <br>
-
- <section class="section">
- <h4 class="title is-4">- ingresar como cliente -</h4>
- <form name="form1" method="post" action="logincliente.php">
-  <strong>nombre</strong>
-    <input type="text" name="nombre">
-  <strong>contraseña</strong>
-    <input type="password" name="pass">
-    <button class="button is-link is-light" type="submit" >login</button>
-
- </form>
- </section>
-_LOGIN1;
-}
-//si encontró una sesión de empleado entonces 
-else
-{
- 
-    if(isset($_SESSION["cliente"]))
-    {
-     
-    echo <<<_LOGGED2
-
     <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
-            <div class="buttons">
-          <a class="button is-dark" href="logout.php">
-             <strong>Log out</strong></a>
-            
-             <a class="button is-dark" href="todos.php">
-                <strong>Todos</strong></a>
-               
-                <a class="button is-dark" href="cat1.php">
-                   <strong>Herramientas</strong></a>
-             
-                   <a class="button is-dark" href="cat2.php">
-                      <strong>Electricos</strong></a>
-                      
-                      <a class="button is-dark" href="cat3.php">
-                         <strong>Clavos y tornillos</strong>
-                         
-          </a>
-        </nav>
-_LOGGED2;
-     }
-     else
-     {
-        $nombre_de_usuario=$_SESSION["empleado"];
- 
-   echo <<<_LOGGED1
-
-    <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
-            <div class="buttons">
-          <a class="button is-dark" href="logout.php">
-             <strong>Log out</strong>
-          </a>
-          <a class="button is-dark" href="todos.php">
-          <strong>Todos</strong></a>
-         
-          <a class="button is-dark" href="cat1.php">
-             <strong>Herramientas</strong></a>
-       
-             <a class="button is-dark" href="cat2.php">
-                <strong>Electricos</strong></a>
-                
-                <a class="button is-dark" href="cat3.php">
-                   <strong>Clavos y tornillos</strong></a>
-
-                   <a class="button is-dark" href="insertar1.php">
-                   <strong>Insertar y editar</strong></a>
-
-                   <a class="button is-dark" href="eraseproducto1.php">
-                   <strong>eliminar</strong></a>
     </nav>
+   
+    <br>
+
+<!-- LOGIN FORMULARIO -->
+<section class="section">
+  <div class="box">
+    <div class="field">
+      <h4 class="title is-4">- Ingresar -</h4>
+        <div class="control"> 
+          <form name="form1" method="POST" action="api/funcion.php/login">
+              <label class="label">Nombre: </label>
+                 <input class="input" type="text" name="usuario" placeholder="ingresa tu nombre">
+              <label class="label">Contraseña: </label>
+                 <input class="input" type="password" name="password" placeholder="escribe tu contraseña">
+              <input class="button is-link is-light" value="login" type="button" onclick="login()">
+          </form>
+        </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- FUNCIONES JAVASCRIPT -->
+<script>
+
+//LOGIN FUNCION
+    function login(){
+
+        axios.post(`api/funcion.php/login/${document.forms[0].usuario.value}`, {
+        usuario: document.forms[0].usuario.value,
+        password: document.forms[0].password.value,
+       }).then(resp => {
+         if (resp.data.aceptado){
+             alert(`bienvenido: ${resp.data.nombreperfiles}`)
+             setTimeout(`location.href='inicio.php?idusuario=${
+                 resp.data.idusuario}'`,500)
+         } else {
+             alert(`el usuario y/o contraseña esta incorrecto\n
+             verifique e intenten de nuevo.`)
+         }
+
+       }).catch(error => {
+         console.log(error)
+       })
+    }
+   
+   
     
-    <section class="hero">
-    <div class="hero-head">
-      
-        <h1 class="title">
-        sesion iniciada como: 
-        </h1>
-        <h2 class="subtitle">
-         -$nombre_de_usuario-
-        </h2>
-      </div>
-  </section>
-
-
-
-_LOGGED1;
-
-
-
-
-     }
-}
+    </script>
+    </body>
+    </html>

@@ -6,7 +6,7 @@ $capsule = new Capsule;
 $capsule->addConnection([
     'driver'    => 'mysql',
     'host'      => 'localhost',
-    'database'  => 'ferreteria_int2',
+    'database'  => 'ferreteriav4',
     'username'  => 'root',
     'password'  => 'ferreteria',
     'charset'   => 'utf8',
